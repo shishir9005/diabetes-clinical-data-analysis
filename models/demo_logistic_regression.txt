@@ -1,0 +1,13 @@
+Demo-only model for the Streamlit app: Logistic Regression, parameters {"C": 0.1}
+It is NOT the model the project's selection rule chose. That is the RBF SVM, whose saved file stores 127 of the 416 training records as support vectors and is therefore not published (see the README).
+Configuration: the Logistic Regression configuration that cross-validation chose for the primary analysis (reports/model_selection.json). No new tuning was done.
+Fitted on: data/processed/train_rows.csv, all 416 training rows of the primary analysis; no test row was read.
+scikit-learn 1.9.1, numpy 2.5.4, pandas 3.1.1, python 3.12.16
+Input: a pandas DataFrame with exactly these 16 columns in this order (age in years; every other column 0/1):
+  age, gender_male, polyuria, polydipsia, sudden_weight_loss, weakness, polyphagia, genital_thrush, visual_blurring, itching, irritability, delayed_healing, partial_paresis, muscle_stiffness, alopecia, obesity
+predict() returns the predicted dataset class: 1 = Positive, 0 = Negative.
+The app shows the predicted class only. Probabilities from this model were not calibrated or evaluated, so none is shown (plan section 3.13).
+This file was not evaluated separately. The report's Logistic Regression row (primary analysis) evaluated this configuration once on the test set.
+Inspection of the saved file (src/s12_demo_model.py, run before the file was written): 3,505 bytes; 10 arrays holding 55 values in total (largest: 16, the coefficients); it refers only to scikit-learn, numpy and joblib classes; it has no support vectors, row indices or per-row values, and no training row appears in any stored array.
+joblib file SHA-256: c3191e4970f9c9718e123dfe95fc8bdc3788bcae912091c326c7562746f41038
+Built only from scikit-learn components.

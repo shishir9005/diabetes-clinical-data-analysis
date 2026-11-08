@@ -1,0 +1,55 @@
+# .gitignore for Diabetes_Clinical_Data_Analysis (release rules decided 8 Nov 2026, see docs/PROJECT_PLAN.md §8)
+#
+# Published: code, tests, the app, the notebook, aggregate reports and figures, the demo-only Logistic Regression, docs.
+#
+# Kept on this computer only:
+# * Row-level data (data/): the raw UCI download, the processed CSVs and the train/test and fold assignments.
+#   The raw file is re-downloadable and hash-pinned (docs/DATA_SOURCE.md). The CC BY 4.0 licence would allow
+#   redistribution with attribution, but the owner decided not to publish any dataset rows or assignments.
+# * Databases, which are rebuilt from the training rows.
+# * The research-selected RBF SVM (models/primary_demo_pipeline.*). An RBF SVM stores some of its training records
+#   (its support vectors, with their classes) inside the saved file, so the file is not published. The app uses the
+#   row-free models/demo_logistic_regression.* instead.
+# * Private environment reports and Day 1 working notes: they contain local paths and machine details.
+#   They are still listed, with their SHA-256, in reports/sha256_manifest.txt.
+# * The archive of earlier file versions (an evidence trail with local paths and row-level files).
+
+# Row-level data and generated databases
+/data/
+*.sqlite
+*.sqlite3
+
+# Private environment reports and working notes
+/reports/00_environment.md
+/reports/00_environment_fingerprints.txt
+/reports/00_smoke_test.json
+/reports/07_correction_verification.md
+/reports/07_day1_correction_report.md
+/reports/08_day1_final_review.md
+/reports/DAY1_SUMMARY.md
+
+# Earlier versions of replaced files
+/archive/
+
+# The research-selected RBF SVM and its description (the file stores 127 of the 416 training records)
+/models/primary_demo_pipeline.joblib
+/models/primary_demo_pipeline.txt
+
+# Python, Jupyter and Streamlit
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.streamlit/secrets.toml
+
+# Links that the "Help agents write better Streamlit apps" pop-up creates in the project folder when its Install
+# button is used. They point into the local Python environment, so they must never be published.
+/.agents/skills/
+/.claude/skills/
+
+# Environments, secrets, editor and OS files
+.venv/
+venv/
+.env
+.vscode/
+.idea/
+.DS_Store

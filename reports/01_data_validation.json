@@ -1,0 +1,278 @@
+{
+  "checks": {
+    "sha256_matches_download_record": {
+      "ok": true,
+      "detail": "7889d9d0beb7dd1ccc58da99f72763f16afb259b5dbbaa086f8195366ff66137"
+    },
+    "utf8_decodes": {
+      "ok": true,
+      "detail": "decoded as UTF-8"
+    },
+    "no_byte_order_mark": {
+      "ok": true,
+      "detail": "BOM absent"
+    },
+    "line_endings": {
+      "ok": true,
+      "detail": {
+        "crlf_lines": 521,
+        "lf_total": 521,
+        "style": "CRLF"
+      }
+    },
+    "no_non_ascii_characters": {
+      "ok": true,
+      "detail": 0
+    },
+    "every_line_has_same_field_count": {
+      "ok": true,
+      "detail": {
+        "17": 521
+      }
+    },
+    "rows_match_documentation": {
+      "ok": true,
+      "detail": {
+        "observed": 520,
+        "documented": 520
+      }
+    },
+    "columns_match_documentation": {
+      "ok": true,
+      "detail": {
+        "observed": 17,
+        "documented": 17
+      }
+    },
+    "pandas_rows_equal_csv_lines_minus_header": {
+      "ok": true,
+      "detail": {
+        "pandas": 520,
+        "csv_lines_minus_header": 520
+      }
+    },
+    "header_exact_match_expected": {
+      "ok": true,
+      "detail": [
+        "Age",
+        "Gender",
+        "Polyuria",
+        "Polydipsia",
+        "sudden weight loss",
+        "weakness",
+        "Polyphagia",
+        "Genital thrush",
+        "visual blurring",
+        "Itching",
+        "Irritability",
+        "delayed healing",
+        "partial paresis",
+        "muscle stiffness",
+        "Alopecia",
+        "Obesity",
+        "class"
+      ]
+    },
+    "no_whitespace_padding_in_column_names": {
+      "ok": true,
+      "detail": []
+    },
+    "header_matches_uci_variable_names_after_normalising": {
+      "ok": true,
+      "detail": {
+        "normalised_header": [
+          "age",
+          "gender",
+          "polyuria",
+          "polydipsia",
+          "sudden_weight_loss",
+          "weakness",
+          "polyphagia",
+          "genital_thrush",
+          "visual_blurring",
+          "itching",
+          "irritability",
+          "delayed_healing",
+          "partial_paresis",
+          "muscle_stiffness",
+          "alopecia",
+          "obesity",
+          "class"
+        ],
+        "uci": [
+          "age",
+          "gender",
+          "polyuria",
+          "polydipsia",
+          "sudden_weight_loss",
+          "weakness",
+          "polyphagia",
+          "genital_thrush",
+          "visual_blurring",
+          "itching",
+          "irritability",
+          "delayed_healing",
+          "partial_paresis",
+          "muscle_stiffness",
+          "alopecia",
+          "obesity",
+          "class"
+        ]
+      }
+    },
+    "no_whitespace_padding_in_cells": {
+      "ok": true,
+      "detail": {}
+    },
+    "no_missing_or_placeholder_values": {
+      "ok": true,
+      "detail": {
+        "per_column": {
+          "Age": 0,
+          "Gender": 0,
+          "Polyuria": 0,
+          "Polydipsia": 0,
+          "sudden weight loss": 0,
+          "weakness": 0,
+          "Polyphagia": 0,
+          "Genital thrush": 0,
+          "visual blurring": 0,
+          "Itching": 0,
+          "Irritability": 0,
+          "delayed healing": 0,
+          "partial paresis": 0,
+          "muscle stiffness": 0,
+          "Alopecia": 0,
+          "Obesity": 0,
+          "class": 0
+        },
+        "tokens_searched": [
+          "",
+          "-",
+          "--",
+          "?",
+          "missing",
+          "n/a",
+          "na",
+          "nan",
+          "none",
+          "null",
+          "unknown"
+        ]
+      }
+    },
+    "no_case_variants": {
+      "ok": true,
+      "detail": {}
+    },
+    "categorical_values_within_expected_sets": {
+      "ok": true,
+      "detail": {}
+    },
+    "age_all_numeric": {
+      "ok": true,
+      "detail": 0
+    },
+    "age_all_integer": {
+      "ok": true,
+      "detail": 0
+    },
+    "age_within_documented_range_20_65 (informational)": {
+      "ok": false,
+      "detail": {
+        "min": 16,
+        "max": 90,
+        "mean": 48.03,
+        "median": 47.5,
+        "distinct_values": 51,
+        "rows_outside_documented_20_65": 52,
+        "rows_below_20": 1,
+        "rows_above_65": 51
+      }
+    }
+  },
+  "shape": {
+    "rows": 520,
+    "columns": 17
+  },
+  "distinct_values": {
+    "Gender": {
+      "Female": 192,
+      "Male": 328
+    },
+    "Polyuria": {
+      "No": 262,
+      "Yes": 258
+    },
+    "Polydipsia": {
+      "No": 287,
+      "Yes": 233
+    },
+    "sudden weight loss": {
+      "No": 303,
+      "Yes": 217
+    },
+    "weakness": {
+      "No": 215,
+      "Yes": 305
+    },
+    "Polyphagia": {
+      "No": 283,
+      "Yes": 237
+    },
+    "Genital thrush": {
+      "No": 404,
+      "Yes": 116
+    },
+    "visual blurring": {
+      "No": 287,
+      "Yes": 233
+    },
+    "Itching": {
+      "No": 267,
+      "Yes": 253
+    },
+    "Irritability": {
+      "No": 394,
+      "Yes": 126
+    },
+    "delayed healing": {
+      "No": 281,
+      "Yes": 239
+    },
+    "partial paresis": {
+      "No": 296,
+      "Yes": 224
+    },
+    "muscle stiffness": {
+      "No": 325,
+      "Yes": 195
+    },
+    "Alopecia": {
+      "No": 341,
+      "Yes": 179
+    },
+    "Obesity": {
+      "No": 432,
+      "Yes": 88
+    },
+    "class": {
+      "Negative": 200,
+      "Positive": 320
+    }
+  },
+  "age_summary": {
+    "min": 16,
+    "max": 90,
+    "mean": 48.03,
+    "median": 47.5,
+    "distinct_values": 51,
+    "rows_outside_documented_20_65": 52,
+    "rows_below_20": 1,
+    "rows_above_65": 51
+  },
+  "hard_failures": [],
+  "informational_mismatches": [
+    "age_within_documented_range_20_65 (informational)"
+  ]
+}

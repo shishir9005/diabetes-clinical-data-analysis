@@ -1,0 +1,12 @@
+# Packages needed to run the Streamlit app (Python 3.12). Versions are pinned to the ones the saved model was
+# fitted with and the app was tested with: a scikit-learn pickle should be loaded with the same version.
+#   python -m pip install -r requirements.txt
+#
+# Re-running the notebook and the analysis scripts needs more: requirements-analysis.txt
+# The optional neural-network experiment needs PyTorch too: requirements-fnn.txt
+numpy==2.5.4
+pandas==3.1.1
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+streamlit==1.67.0

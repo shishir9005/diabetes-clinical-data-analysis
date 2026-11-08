@@ -1,0 +1,93 @@
+{
+  "exact_duplicates": {
+    "total_rows": 520,
+    "unique_records": 251,
+    "redundant_copies": 269,
+    "pct_redundant_copies": 51.73,
+    "duplicate_groups": 107,
+    "rows_in_duplicate_groups": 376,
+    "pct_rows_in_duplicate_groups": 72.31,
+    "group_size_distribution": {
+      "2": 38,
+      "3": 34,
+      "4": 8,
+      "5": 9,
+      "6": 14,
+      "7": 3,
+      "16": 1
+    },
+    "class_split_rows_in_duplicate_groups": {
+      "rows": 376,
+      "positive": 220,
+      "negative": 156,
+      "pct_positive": 58.51
+    },
+    "class_split_redundant_copies": {
+      "rows": 269,
+      "positive": 147,
+      "negative": 122,
+      "pct_positive": 54.65
+    },
+    "class_split_all_rows": {
+      "rows": 520,
+      "positive": 320,
+      "negative": 200,
+      "pct_positive": 61.54
+    },
+    "class_split_deduplicated": {
+      "rows": 251,
+      "positive": 173,
+      "negative": 78,
+      "pct_positive": 68.92
+    }
+  },
+  "conflicting_profiles_all_rows": {
+    "rows_in_view": 520,
+    "unique_profiles": 251,
+    "profiles_with_more_than_one_row": 107,
+    "conflicting_profiles": 0,
+    "rows_in_conflicting_profiles": 0,
+    "pct_rows_in_conflicting_profiles": 0.0,
+    "positive_rows_in_conflicting_profiles": 0,
+    "negative_rows_in_conflicting_profiles": 0,
+    "minimum_rows_any_deterministic_classifier_must_misclassify": 0,
+    "theoretical_max_accuracy_from_conflicts_only": 1.0
+  },
+  "conflicting_profiles_deduplicated": {
+    "rows_in_view": 251,
+    "unique_profiles": 251,
+    "profiles_with_more_than_one_row": 0,
+    "conflicting_profiles": 0,
+    "rows_in_conflicting_profiles": 0,
+    "pct_rows_in_conflicting_profiles": 0.0,
+    "positive_rows_in_conflicting_profiles": 0,
+    "negative_rows_in_conflicting_profiles": 0,
+    "minimum_rows_any_deterministic_classifier_must_misclassify": 0,
+    "theoretical_max_accuracy_from_conflicts_only": 1.0
+  },
+  "conflicting_profile_detail_all_rows": [],
+  "sql_cross_check": {
+    "clean_exact_dups(groups, rows_in_groups, redundant)": [
+      107,
+      376,
+      269
+    ],
+    "raw_text_exact_dups(groups, rows_in_groups, redundant)": [
+      107,
+      376,
+      269
+    ],
+    "clean_conflicts(profiles, rows, minority_rows)": [
+      0,
+      0,
+      0
+    ],
+    "raw_text_conflicts(profiles, rows, minority_rows)": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sql_matches_pandas": true,
+  "confirmed_repeated_patients": "cannot be determined: no patient identifier, visit date or record identifier exists"
+}

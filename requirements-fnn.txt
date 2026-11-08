@@ -1,0 +1,4 @@
+# Optional: only for the secondary neural-network experiment (src/s10_fnn.py). The app does not use PyTorch.
+#   python -m pip install -r requirements-fnn.txt
+-r requirements-analysis.txt
+torch==2.15.0

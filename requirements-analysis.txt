@@ -1,0 +1,6 @@
+# Everything needed to run the notebook and the analysis scripts, on top of the app packages (Python 3.12).
+#   python -m pip install -r requirements-analysis.txt
+-r requirements.txt
+matplotlib==3.11.2
+jupyterlab==4.6.5
+ipykernel==7.4.0

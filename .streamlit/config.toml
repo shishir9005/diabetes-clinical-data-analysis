@@ -1,0 +1,21 @@
+# Streamlit settings for this project. Streamlit reads this file when the app is started from the
+# project folder:  streamlit run app/streamlit_app.py
+
+[browser]
+gatherUsageStats = false      # send no usage statistics to Streamlit
+
+[server]
+address = "localhost"         # listen on this computer only, so other devices on the network cannot reach the app
+showEmailPrompt = false       # no first-run email question in the terminal
+
+[client]
+toolbarMode = "minimal"       # hide the developer menu (Deploy, Rerun, Clear cache)
+showErrorDetails = "none"     # the browser shows a generic message; the terminal shows the details
+showErrorLinks = false        # no links to search engines or chatbots in error boxes
+
+[theme]
+base = "light"
+primaryColor = "#1f64bd"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f6f9"
+textColor = "#1f2933"

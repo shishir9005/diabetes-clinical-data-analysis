@@ -1,0 +1,642 @@
+{
+  "created_utc": "2026-11-07T14:49:56Z",
+  "grids": {
+    "Categorical NB": [
+      {
+        "alpha": 0.1
+      },
+      {
+        "alpha": 0.5
+      },
+      {
+        "alpha": 1.0
+      }
+    ],
+    "Logistic Regression": [
+      {
+        "C": 0.01
+      },
+      {
+        "C": 0.1
+      },
+      {
+        "C": 1
+      },
+      {
+        "C": 10
+      }
+    ],
+    "Majority-class baseline": [
+      {}
+    ],
+    "RBF SVM": [
+      {
+        "C": 0.1,
+        "gamma": "scale"
+      },
+      {
+        "C": 0.1,
+        "gamma": 0.01
+      },
+      {
+        "C": 0.1,
+        "gamma": 0.1
+      },
+      {
+        "C": 1,
+        "gamma": "scale"
+      },
+      {
+        "C": 1,
+        "gamma": 0.01
+      },
+      {
+        "C": 1,
+        "gamma": 0.1
+      },
+      {
+        "C": 10,
+        "gamma": "scale"
+      },
+      {
+        "C": 10,
+        "gamma": 0.01
+      },
+      {
+        "C": 10,
+        "gamma": 0.1
+      }
+    ],
+    "Random Forest": [
+      {
+        "max_depth": null,
+        "min_samples_leaf": 1
+      },
+      {
+        "max_depth": null,
+        "min_samples_leaf": 3
+      },
+      {
+        "max_depth": 5,
+        "min_samples_leaf": 1
+      },
+      {
+        "max_depth": 5,
+        "min_samples_leaf": 3
+      },
+      {
+        "max_depth": 10,
+        "min_samples_leaf": 1
+      },
+      {
+        "max_depth": 10,
+        "min_samples_leaf": 3
+      }
+    ]
+  },
+  "inputs_sha256": {
+    "cv_folds.csv": "f71888b1ba497c57524de495bdd9d93133bc7ff94541228850b6773fa58bd696",
+    "train_rows.csv": "05dfd30e3ff96f102d95e4f5198037071f5e4484b87f695f8635a55a6e1370e8"
+  },
+  "rule": [
+    "1. Within a model: highest mean CV ROC-AUC; exact ties go to the first configuration listed.",
+    "2. Across the four models: best = highest mean CV ROC-AUC; sd_best = SD (ddof=1) of that model's 15 fold ROC-AUC values; every model with mean >= best - sd_best is eligible; choose the eligible model that is simplest in the fixed simplicity order.",
+    "3. The primary view's choice is the demo model; the sensitivity view's choice is for comparison only."
+  ],
+  "simplicity_order": [
+    "Logistic Regression",
+    "Categorical NB",
+    "RBF SVM",
+    "Random Forest"
+  ],
+  "software": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "python": "3.12.16",
+    "scikit-learn": "1.9.1"
+  },
+  "views": {
+    "primary": {
+      "baseline": {
+        "config_id": 0,
+        "fold_roc_auc": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "metrics_mean": {
+          "accuracy": 0.6153757888697647,
+          "f1": 0.7618964003511851,
+          "precision": 0.6153757888697647,
+          "recall": 1.0,
+          "roc_auc": 0.5,
+          "specificity": 0.0
+        },
+        "metrics_n_undefined": {
+          "accuracy": 0,
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "roc_auc": 0,
+          "specificity": 0
+        },
+        "metrics_sd": {
+          "accuracy": 0.0019003526591183763,
+          "f1": 0.0014540450767529735,
+          "precision": 0.0019003526591183763,
+          "recall": 0.0,
+          "roc_auc": 0.0,
+          "specificity": 0.0
+        },
+        "params": {},
+        "roc_auc_mean": 0.5,
+        "roc_auc_sd": 0.0
+      },
+      "best_mean": 0.9839327237305178,
+      "best_model": "Random Forest",
+      "chosen_model": "RBF SVM",
+      "eligible": [
+        "RBF SVM",
+        "Random Forest"
+      ],
+      "models": {
+        "Categorical NB": {
+          "config_id": 2,
+          "fold_roc_auc": [
+            0.9609375,
+            0.961703431372549,
+            0.9111519607843137,
+            0.9626225490196079,
+            0.9589460784313726,
+            0.8786057692307692,
+            0.9344362745098039,
+            0.9969362745098039,
+            0.9264705882352942,
+            0.9779411764705882,
+            0.9675480769230769,
+            0.9810049019607843,
+            0.9417892156862746,
+            0.960171568627451,
+            0.9142156862745098
+          ],
+          "metrics_mean": {
+            "accuracy": 0.8839357429718876,
+            "f1": 0.900635315769603,
+            "precision": 0.9438414153272812,
+            "recall": 0.8662141779788839,
+            "roc_auc": 0.9489654034690799,
+            "specificity": 0.9125
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.050958840572968976,
+            "f1": 0.04581225828805103,
+            "precision": 0.05118353679082574,
+            "recall": 0.08042354660940484,
+            "roc_auc": 0.031152196191255654,
+            "specificity": 0.0811469126250126
+          },
+          "params": {
+            "alpha": 1.0
+          },
+          "roc_auc_mean": 0.9489654034690799,
+          "roc_auc_sd": 0.031152196191255654
+        },
+        "Logistic Regression": {
+          "config_id": 1,
+          "fold_roc_auc": [
+            0.9651442307692308,
+            0.9969362745098039,
+            0.9558823529411764,
+            0.9491421568627451,
+            0.9803921568627452,
+            0.9044471153846154,
+            0.9577205882352942,
+            0.9975490196078431,
+            0.954656862745098,
+            0.9834558823529411,
+            0.9735576923076923,
+            0.9742647058823528,
+            0.9583333333333333,
+            0.9718137254901961,
+            0.9234068627450982
+          ],
+          "metrics_mean": {
+            "accuracy": 0.9047236565308854,
+            "f1": 0.9208477114043223,
+            "precision": 0.9403636149495134,
+            "recall": 0.9064605329311212,
+            "roc_auc": 0.963113530668678,
+            "specificity": 0.9020833333333333
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.037606736447356216,
+            "f1": 0.0324082664805685,
+            "precision": 0.048639386544970666,
+            "recall": 0.06301494829567378,
+            "roc_auc": 0.024992421383709666,
+            "specificity": 0.083407704908451
+          },
+          "params": {
+            "C": 0.1
+          },
+          "roc_auc_mean": 0.963113530668678,
+          "roc_auc_sd": 0.024992421383709666
+        },
+        "RBF SVM": {
+          "config_id": 5,
+          "fold_roc_auc": [
+            0.9711538461538461,
+            0.9938725490196079,
+            0.9571078431372548,
+            0.9558823529411764,
+            1.0,
+            0.9278846153846154,
+            0.9944852941176471,
+            0.9938725490196079,
+            0.9564950980392157,
+            0.9963235294117647,
+            0.9849759615384616,
+            0.9920343137254901,
+            0.9908088235294118,
+            1.0,
+            0.9534313725490197
+          ],
+          "metrics_mean": {
+            "accuracy": 0.9223656530885445,
+            "f1": 0.9348174483848997,
+            "precision": 0.9594118237021866,
+            "recall": 0.9142785319255908,
+            "roc_auc": 0.9778885432378079,
+            "specificity": 0.9354166666666667
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.03605129563555411,
+            "f1": 0.031085850686607568,
+            "precision": 0.03408069950049881,
+            "recall": 0.05994164979765557,
+            "roc_auc": 0.02242299567376223,
+            "specificity": 0.05472468973568207
+          },
+          "params": {
+            "C": 1,
+            "gamma": 0.1
+          },
+          "roc_auc_mean": 0.9778885432378079,
+          "roc_auc_sd": 0.02242299567376223
+        },
+        "Random Forest": {
+          "config_id": 2,
+          "fold_roc_auc": [
+            0.9765625,
+            0.9693627450980392,
+            0.985906862745098,
+            0.9797794117647058,
+            1.0,
+            0.9585336538461539,
+            0.9975490196078431,
+            0.9944852941176471,
+            0.9767156862745098,
+            0.9981617647058824,
+            0.9813701923076923,
+            0.9926470588235294,
+            0.9901960784313726,
+            1.0,
+            0.957720588235294
+          ],
+          "metrics_mean": {
+            "accuracy": 0.9327596098680436,
+            "f1": 0.9436380745891407,
+            "precision": 0.9636068641307459,
+            "recall": 0.9272750125691303,
+            "roc_auc": 0.9839327237305178,
+            "specificity": 0.9416666666666667
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.035261588464338946,
+            "f1": 0.031019365595264827,
+            "precision": 0.03028636304416827,
+            "recall": 0.06062249299438306,
+            "roc_auc": 0.014165608603240233,
+            "specificity": 0.04992553979487377
+          },
+          "params": {
+            "max_depth": 5,
+            "min_samples_leaf": 1
+          },
+          "roc_auc_mean": 0.9839327237305178,
+          "roc_auc_sd": 0.014165608603240233
+        }
+      },
+      "n_profiles": 202,
+      "n_rows": 416,
+      "n_splits": 15,
+      "sd_best": 0.014165608603240233,
+      "threshold": 0.9697671151272775
+    },
+    "sensitivity": {
+      "baseline": {
+        "config_id": 0,
+        "fold_roc_auc": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "metrics_mean": {
+          "accuracy": 0.6883062330623305,
+          "f1": 0.815277237003389,
+          "precision": 0.6883062330623305,
+          "recall": 1.0,
+          "roc_auc": 0.5,
+          "specificity": 0.0
+        },
+        "metrics_n_undefined": {
+          "accuracy": 0,
+          "f1": 0,
+          "precision": 0,
+          "recall": 0,
+          "roc_auc": 0,
+          "specificity": 0
+        },
+        "metrics_sd": {
+          "accuracy": 0.016270841924694378,
+          "f1": 0.011512376325188022,
+          "precision": 0.016270841924694378,
+          "recall": 0.0,
+          "roc_auc": 0.0,
+          "specificity": 0.0
+        },
+        "params": {},
+        "roc_auc_mean": 0.5,
+        "roc_auc_sd": 0.0
+      },
+      "best_mean": 0.9810473477140144,
+      "best_model": "RBF SVM",
+      "chosen_model": "RBF SVM",
+      "eligible": [
+        "RBF SVM",
+        "Random Forest"
+      ],
+      "models": {
+        "Categorical NB": {
+          "config_id": 0,
+          "fold_roc_auc": [
+            0.949404761904762,
+            0.9776785714285714,
+            0.8941798941798942,
+            0.9553571428571429,
+            0.9807692307692307,
+            0.9136904761904762,
+            0.971938775510204,
+            0.9642857142857144,
+            0.9188034188034188,
+            0.9851190476190476,
+            0.9436813186813187,
+            0.9851190476190477,
+            0.9434523809523809,
+            0.9761904761904762,
+            0.9107142857142858
+          ],
+          "metrics_mean": {
+            "accuracy": 0.8877564847077043,
+            "f1": 0.9140880941032818,
+            "precision": 0.9570024232897796,
+            "recall": 0.8776014109347442,
+            "roc_auc": 0.9513589695137316,
+            "specificity": 0.9108058608058607
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.051317486334994326,
+            "f1": 0.0403378835007029,
+            "precision": 0.04132378237616322,
+            "recall": 0.06346817598849337,
+            "roc_auc": 0.029983191195172045,
+            "specificity": 0.08952560054082738
+          },
+          "params": {
+            "alpha": 0.1
+          },
+          "roc_auc_mean": 0.9513589695137316,
+          "roc_auc_sd": 0.029983191195172045
+        },
+        "Logistic Regression": {
+          "config_id": 2,
+          "fold_roc_auc": [
+            0.9464285714285714,
+            0.9970238095238095,
+            0.9206349206349207,
+            0.9583333333333334,
+            0.9807692307692307,
+            0.943452380952381,
+            0.971938775510204,
+            0.9791666666666667,
+            0.9145299145299145,
+            0.988095238095238,
+            0.9615384615384616,
+            0.9702380952380951,
+            0.9613095238095237,
+            0.9920634920634921,
+            0.9285714285714286
+          ],
+          "metrics_mean": {
+            "accuracy": 0.8877138985675572,
+            "f1": 0.9165624886588551,
+            "precision": 0.9349760384358086,
+            "recall": 0.9016754850088183,
+            "roc_auc": 0.960939589511018,
+            "specificity": 0.8601343101343102
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.04417229805051278,
+            "f1": 0.03371864037003837,
+            "precision": 0.044756670898105984,
+            "recall": 0.055304535541275436,
+            "roc_auc": 0.02576094094404616,
+            "specificity": 0.09512070278432332
+          },
+          "params": {
+            "C": 1
+          },
+          "roc_auc_mean": 0.960939589511018,
+          "roc_auc_sd": 0.02576094094404616
+        },
+        "RBF SVM": {
+          "config_id": 3,
+          "fold_roc_auc": [
+            0.9642857142857143,
+            0.9851190476190476,
+            0.9735449735449735,
+            0.9791666666666667,
+            1.0,
+            0.9583333333333334,
+            1.0,
+            0.9851190476190477,
+            0.9601139601139601,
+            0.9940476190476191,
+            0.9725274725274725,
+            0.9970238095238095,
+            0.9910714285714286,
+            1.0,
+            0.9553571428571429
+          ],
+          "metrics_mean": {
+            "accuracy": 0.9287785520712349,
+            "f1": 0.9468898876153972,
+            "precision": 0.9643922641853675,
+            "recall": 0.9328924162257495,
+            "roc_auc": 0.9810473477140144,
+            "specificity": 0.9214896214896214
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.038938205337341054,
+            "f1": 0.029844663604458366,
+            "precision": 0.03256045926825597,
+            "recall": 0.05885546228825094,
+            "roc_auc": 0.01617534753223008,
+            "specificity": 0.07387518671817522
+          },
+          "params": {
+            "C": 1,
+            "gamma": "scale"
+          },
+          "roc_auc_mean": 0.9810473477140144,
+          "roc_auc_sd": 0.01617534753223008
+        },
+        "Random Forest": {
+          "config_id": 0,
+          "fold_roc_auc": [
+            0.9732142857142857,
+            0.9821428571428571,
+            0.9656084656084656,
+            0.9851190476190477,
+            1.0,
+            0.96875,
+            0.9974489795918368,
+            0.9910714285714285,
+            0.9458689458689459,
+            1.0,
+            0.9532967032967032,
+            0.9910714285714285,
+            0.9910714285714286,
+            1.0,
+            0.9642857142857143
+          ],
+          "metrics_mean": {
+            "accuracy": 0.9323132017034456,
+            "f1": 0.9499883429041392,
+            "precision": 0.959402935081096,
+            "recall": 0.9424162257495591,
+            "roc_auc": 0.9805966189894761,
+            "specificity": 0.9115995115995116
+          },
+          "metrics_n_undefined": {
+            "accuracy": 0,
+            "f1": 0,
+            "precision": 0,
+            "recall": 0,
+            "roc_auc": 0,
+            "specificity": 0
+          },
+          "metrics_sd": {
+            "accuracy": 0.03417810662840077,
+            "f1": 0.026163180447118108,
+            "precision": 0.029021053775709547,
+            "recall": 0.046747254776839914,
+            "roc_auc": 0.01773276229299135,
+            "specificity": 0.06284543898109547
+          },
+          "params": {
+            "max_depth": null,
+            "min_samples_leaf": 1
+          },
+          "roc_auc_mean": 0.9805966189894761,
+          "roc_auc_sd": 0.01773276229299135
+        }
+      },
+      "n_profiles": 202,
+      "n_rows": 202,
+      "n_splits": 15,
+      "sd_best": 0.01617534753223008,
+      "threshold": 0.9648720001817843
+    }
+  }
+}
