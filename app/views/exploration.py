@@ -9,10 +9,16 @@ st.header("Exploratory analysis")
 with c.guard("The exploratory analysis"):
     counts = c.read_json("reports/03_split_and_cv.json")["test_split_counts"]
     train = {row["role"]: row for row in counts if row["partition"] == "train"}
+    # One name for each view in every table. The saved EDA report says "All training rows" and "Deduplicated training
+    # rows"; the rest of the app says primary and sensitivity, so these tables do too.
+    view_label = {"primary": f"Primary: all {train['primary']['rows']} training records",
+                  "sensitivity": f"Sensitivity: {train['sensitivity']['rows']} unique profiles"}
+    report_view = {"All training rows": view_label["primary"], "Deduplicated training rows": view_label["sensitivity"]}
     st.info(
         f"Training records only: {train['primary']['rows']} records, {train['primary']['groups']} unique profiles. "
         "No test record was read. Everything here is descriptive: nothing was fitted, tuned or selected from these plots. "
-        "Each figure shows the primary analysis (all records) next to the sensitivity analysis (unique profiles only).",
+        "Each figure shows the primary analysis (all records) next to the sensitivity analysis (unique profiles only); "
+        "the saved figures label these two views \"All training rows\" and \"Deduplicated training rows\".",
         icon=":material/visibility:",
     )
 
@@ -22,7 +28,7 @@ with c.guard("The exploratory analysis"):
         c.show_figure("fig01_class_balance_train.png",
                       "Class counts in the training partition: all records versus unique profiles.")
         balance = pd.DataFrame([
-            {"View": "All training records (primary)" if row["role"] == "primary" else "Unique profiles (sensitivity)",
+            {"View": view_label[row["role"]],
              "Records": row["rows"], "Positive": row["positive"], "Negative": row["negative"],
              "% Positive": f"{row['pct_positive']:.1f}"}
             for row in (train["primary"], train["sensitivity"])
@@ -35,6 +41,7 @@ with c.guard("The exploratory analysis"):
         age = c.report_table(c.EDA_REPORT, "Age by class", column="median")
         for number_column in ("count", "min", "max"):
             age[number_column] = age[number_column].astype(float).astype(int).astype(str)
+        age["view"] = age["view"].replace(report_view)
         c.show_table(age.rename(columns={"view": "View", "class": "Class", "count": "Records", "mean": "Mean age",
                                          "median": "Median age", "min": "Youngest", "max": "Oldest"}))
 
@@ -44,12 +51,15 @@ with c.guard("The exploratory analysis"):
                       "among all training records.")
         gap = c.report_table(c.EDA_REPORT, "Symptom gap", column="pp")
         gap["index"] = gap["index"].str.replace("_", " ")
+        gap.columns = [name.replace("All training rows", "Primary").replace("Deduplicated training rows", "Sensitivity")
+                       for name in gap.columns]
         st.markdown("**Positive minus Negative, in percentage points** (a gap of 0 means the same share answered Yes in both classes).")
         c.show_table(gap.rename(columns={"index": "Symptom"}))
 
     with tab_gender:
         c.show_figure("fig04_gender_by_class_train.png", "Record counts by gender and class.")
         gender = c.report_table(c.EDA_REPORT, "Gender by class", column="pct_positive")
+        gender["view"] = gender["view"].replace(report_view)
         c.show_table(gender.rename(columns={"view": "View", "gender": "Gender", "rows": "Records",
                                             "positive": "Positive", "pct_positive": "% Positive"}))
 

@@ -20,7 +20,10 @@ with c.guard("The overview"):
     age = validation["age_summary"]
     largest_group = max(int(size) for size in audit["group_size_distribution"])
 
-    m1, m2, m3, m4 = st.columns(4)
+    # Two cards to a row. With four across, each card is only about 130 px wide on a 1024 px screen, and the labels and
+    # the "320 / 200" style numbers are cut off.
+    m1, m2 = st.columns(2)
+    m3, m4 = st.columns(2)
     m1.metric("Records", validation["shape"]["rows"], border=True,
               help="Rows in the UCI file. Each has 16 features and a Positive/Negative label.")
     m2.metric("Unique profiles", audit["unique_records"], border=True,

@@ -26,9 +26,12 @@ with c.guard("The evaluation"):
     analysis = st.radio("Analysis", list(ANALYSES), horizontal=True, key="evaluation_analysis")
     view_key, needle = ANALYSES[analysis]
     info = views[view_key]
-    st.caption(f"{info['n_test_rows']} test records from {info['n_test_groups']} groups of identical records "
-               f"({info['test_positive']} Positive, {info['test_negative']} Negative). Rows are the true class, columns "
-               "the predicted class.")
+    if info["n_test_groups"] == info["n_test_rows"]:  # the sensitivity analysis: every record is a different profile
+        records = f"{info['n_test_rows']} test records, each a unique profile"
+    else:
+        records = f"{info['n_test_rows']} test records from {info['n_test_groups']} groups of identical records"
+    st.caption(f"{records} ({info['test_positive']} Positive, {info['test_negative']} Negative). Rows are the true class, "
+               "columns the predicted class.")
 
     confusion = c.report_table(c.RESULTS_REPORT, "Test results", needle, column="True Negative")
     names = list(confusion["Model"])
@@ -49,7 +52,9 @@ with c.guard("The evaluation"):
     tp.metric("True positives", int(row["True Positive"]), border=True)
 
     with st.expander("Confusion counts for every model in this analysis"):
-        c.show_table(confusion)
+        # The same names as the four cards above.
+        c.show_table(confusion.rename(columns={"True Negative": "True negatives", "False Positive": "False positives",
+                                               "False Negative": "False negatives", "True Positive": "True positives"}))
 
     st.subheader("Primary versus sensitivity analysis")
     st.markdown(

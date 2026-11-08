@@ -45,8 +45,8 @@ with c.guard("The model comparison"):
     models = pd.DataFrame(
         [{"Model": name, "What it is": WHAT_IT_IS[name], "Settings searched": settings_searched(selection["grids"][name])}
          for name in WHAT_IT_IS]
-        + [{"Model": "Small neural network (secondary)",
-            "What it is": f"Feed-forward network, {fnn_info['meta']['settings']['architecture']}.",
+        + [{"Model": "FNN (secondary experiment)",  # the name the report's tables use for it
+            "What it is": f"Small feed-forward neural network (FNN), {fnn_info['meta']['settings']['architecture']}.",
             "Settings searched": "fixed architecture; training length chosen by early stopping"}]
     )
     c.show_table(models)

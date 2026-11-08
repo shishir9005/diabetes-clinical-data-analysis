@@ -75,6 +75,24 @@ def report_tables(at: AppTest) -> list[pd.DataFrame]:
     return [t.value.reset_index() for t in at.table]
 
 
+def metric_cards_per_row(at: AppTest) -> list[int]:
+    """For every row of columns on the page that holds metric cards, how many of its columns hold a card."""
+    rows: list[int] = []
+
+    def walk(node) -> None:
+        for child in node.children.values():
+            columns = [c for c in getattr(child, "children", {}).values() if type(c).__name__ == "Column"]
+            if columns:
+                count = sum(any(type(m).__name__ == "Metric" for m in column.children.values()) for column in columns)
+                if count:
+                    rows.append(count)
+            if hasattr(child, "children"):
+                walk(child)
+
+    walk(at.main)
+    return rows
+
+
 def all_text(at: AppTest) -> list[str]:
     """Every piece of text the page shows: markdown, captions, labels, help texts, metric values and tables."""
     found: list[str] = []
@@ -454,6 +472,47 @@ class PageTests(unittest.TestCase):
             with self.subTest(figure=name):
                 self.assertEqual(dm.sha256_file(REPORTS / "figures" / name), manifest[f"reports/figures/{name}"])
                 self.assertIn(name, embedded, "the report embeds the same file")
+
+    def test_metric_cards_are_never_more_than_two_across(self):
+        # Four across left each card about 130 px wide on a 1024 px screen and cut off its label and its number.
+        control = AppTest.from_string("import streamlit as st\nfor column in st.columns(4):\n    column.metric('x', 1)").run()
+        self.assertEqual(metric_cards_per_row(control), [4], "the check does see four cards in a row")
+        for page in ("overview", "evaluation"):
+            with self.subTest(page):
+                rows = metric_cards_per_row(open_page(page))
+                self.assertTrue(rows, "the page has metric cards")
+                self.assertLessEqual(max(rows), 2)
+
+    def test_each_view_and_model_has_one_name_in_every_table(self):
+        counts = {r["role"]: r["rows"] for r in read_json("03_split_and_cv.json")["test_split_counts"] if r["partition"] == "train"}
+        views = set()
+        for table in report_tables(open_page("exploration")):
+            if "View" in table.columns:
+                views |= set(table["View"])
+            if "Symptom" in table.columns:
+                self.assertEqual([name.split(":")[0] for name in table.columns[1:]], ["Primary", "Sensitivity"])
+        self.assertEqual(views, {f"Primary: all {counts['primary']} training records",
+                                 f"Sensitivity: {counts['sensitivity']} unique profiles"})
+        for page in ("model_comparison", "evaluation"):
+            with self.subTest(page):
+                names = {name for table in report_tables(open_page(page)) if "Model" in table.columns
+                         for name in table["Model"] if "FNN" in name or "neural" in name.lower()}
+                self.assertEqual(names, {"FNN (secondary experiment)"})
+        evaluation = open_page("evaluation")
+        confusion = next(table for table in report_tables(evaluation) if "True negatives" in table.columns)
+        self.assertEqual(sorted(m.label for m in evaluation.metric), sorted(confusion.columns[1:]),
+                         "the table and the four cards use the same names")
+
+    def test_the_confusion_caption_calls_unique_profiles_unique_profiles(self):
+        views = read_json("model_test_results.json")["views"]
+        p, s = views["primary"], views["sensitivity"]
+        self.assertEqual(s["n_test_groups"], s["n_test_rows"], "in the sensitivity analysis every record is its own group")
+        at = open_page("evaluation")
+        caption = lambda: next(c.value for c in at.caption if "test records" in c.value)
+        self.assertIn(f"{p['n_test_rows']} test records from {p['n_test_groups']} groups of identical records", caption())
+        at.radio(key="evaluation_analysis").set_value("Sensitivity: 251 unique profiles").run()
+        self.assertIn(f"{s['n_test_rows']} test records, each a unique profile", caption())
+        self.assertNotIn("identical", caption())
 
 
 class PredictionPageTests(unittest.TestCase):
